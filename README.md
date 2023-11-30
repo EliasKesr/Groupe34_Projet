@@ -12,13 +12,7 @@ This project focuses on text encoding using the Sentence Transformer model and a
 - Pip
 - Additional requirements specified in `requirements.txt`
 
-### Installation
-
-```bash
-pip install -r requirements.txt
-```
-
-# Usage
+# Usage (locally)
 
 ## Clone the repo
 ```bash
@@ -29,6 +23,28 @@ cd <repository_directory>
 ```bash
 pip install -r requirements.txt
 ```
+## Run the main.py File
+```bash
+python main.py
+```
+This script performs text encoding, applies dimension reduction methods, evaluates metrics, and visualizes clusters.
+
+# Usage (Docker)
+## Docker pull:
+```bash
+docker pull your-docker-username/your-docker-image:tag
+```
+
+## Docker Execution:
+```bash
+docker run -it your-docker-username/your-docker-image:tag
+```
+
+
+
+
+
+
 
 
 
