@@ -2,13 +2,33 @@ from sklearn.datasets import fetch_20newsgroups
 from sklearn.metrics.cluster import normalized_mutual_info_score, adjusted_rand_score
 from sentence_transformers import SentenceTransformer
 import numpy as np
+import pandas as pd
+import prince
+from sklearn.cluster import KMeans
 
-def dim_red_TSNE(mat, p):
+def dim_red_Acp(mat, p):
     '''
     Perform dimensionality reduction
 
     Input:
     -----
+
+        mat : NxM list 
+        p : number of dimensions to keep 
+    Output:
+    ------
+        red_mat : NxP list such that p<<m
+    '''
+    
+    red_mat = mat[:,:]
+    red_mat = pd.DataFrame(red_mat)
+    pca = prince.PCA(n_components=p)
+    pca = pca.fit(red_mat)
+    
+    return pca.transform(red_mat)
+
+def dim_red_TSNE(mat,p) :
+    '''
     mat : NxM list 
     p : number of dimensions to keep 
     Output:
@@ -44,16 +64,16 @@ def dim_red(mat, p, method):
         red_mat : NxP list such that p<<m
     '''
     if method=='ACP':
-        red_mat = mat[:,:p]
+        red_mat = dim_red_Acp(mat, p)
         
     elif method=='TSNE':
         red_mat = dim_red_TSNE(mat,p)
-        
+       
     elif method=='UMAP':
         red_mat = mat[:,:p]
         
     else:
-        raise Exception("Please select one of the three methods : APC, AFC, UMAP")
+        raise Exception("Please select one of the three methods : APC, TSNE, UMAP")
     
     return red_mat
 
@@ -64,7 +84,7 @@ def clust(mat, k):
 
     Input:
     -----
-        mat : input list
+        mat : input list 
         k : number of cluster
     Output:
     ------
@@ -78,6 +98,7 @@ def clust(mat, k):
 
 
     pred = model_kmeans.labels_
+
 
     return pred
 
