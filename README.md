@@ -3,6 +3,8 @@
 ## Overview
 
 This project focuses on text encoding using the Sentence Transformer model and applying three dimension reduction methods: PCA, UMAP, and t-SNE. The goal is to evaluate the methods using Adjusted Rand Index (ARI) and Normalized Mutual Information (NMI) metrics. Additionally, a final step involves further reducing dimensions to 2D for cluster visualization.
+### Bonus
+We added a fonctionnality to choose a model, and also visualisation of the results in repo experiments.
 
 ## Setup
 
@@ -32,11 +34,11 @@ This script performs text encoding, applies dimension reduction methods, evaluat
 # Usage (Docker)
 ## Docker pull:
 ```bash
-docker pull your-docker-username/your-docker-image:tag
+docker pull mondhirch2/my-python-app:latest
 ```
 
 ## Docker Execution:
 ```bash
-docker run -it your-docker-username/your-docker-image:tag
+docker run -it mondhirch2/my-python-app:latest
 ```
 
