@@ -142,7 +142,10 @@ embeddings = model.encode(corpus)
 methods = ['ACP', 'TSNE', 'UMAP']
 for method in methods:
     # Perform dimensionality reduction
-    red_emb = dim_red(embeddings, 20, method)
+    if method=='TSNE':
+        red_emb = dim_red(embeddings, 3, method)
+    else:
+        red_emb = dim_red(embeddings, 20, method)
 
     # Perform clustering
     pred = clust(red_emb, k)
