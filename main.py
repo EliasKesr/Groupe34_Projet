@@ -5,6 +5,33 @@ import numpy as np
 import pandas as pd
 import prince
 from sklearn.cluster import KMeans
+import numpy as np
+from umap import UMAP
+import matplotlib.pyplot as plt
+from sklearn.preprocessing import StandardScaler
+from sklearn.manifold import TSNE
+
+def dim_red_umap(mat, p):
+    '''
+    Perform dimensionality reduction
+
+    Input:
+    -----
+        mat : NxM list 
+        p : number of dimensions to keep 
+    Output:
+    ------
+        red_mat : NxP list such that p<<m
+    '''
+    
+    # Create UMAP model and fit_transform the embeddings to reduce to 20 dimensions
+    umap_model = UMAP(n_components=p)
+    umap_result = umap_model.fit_transform(embeddings)
+
+    # red_mat = mat[:,:p]
+    
+    return umap_result
+
 
 def dim_red_Acp(mat, p):
     '''
@@ -70,7 +97,7 @@ def dim_red(mat, p, method):
         red_mat = dim_red_TSNE(mat,p)
        
     elif method=='UMAP':
-        red_mat = mat[:,:p]
+        red_mat = dim_red_umap(mat,p)
         
     else:
         raise Exception("Please select one of the three methods : APC, TSNE, UMAP")
@@ -95,7 +122,6 @@ def clust(mat, k):
 
     # Ajuster le modèle 
     model_kmeans.fit(mat)
-
 
     pred = model_kmeans.labels_
 
