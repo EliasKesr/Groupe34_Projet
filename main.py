@@ -118,7 +118,7 @@ def clust(mat, k):
         pred : list of predicted labels
     '''
     # Instancier Kmeans
-    model_kmeans = KMeans(n_clusters=k, random_state=42)
+    model_kmeans = KMeans(n_clusters=k, random_state=42, n_init=10)
 
     # Ajuster le modèle 
     model_kmeans.fit(mat)
@@ -139,11 +139,27 @@ model = SentenceTransformer('paraphrase-MiniLM-L6-v2')
 embeddings = model.encode(corpus)
 
 # Perform dimensionality reduction and clustering for each method
-methods = ['ACP', 'TSNE', 'UMAP']
-for method in methods:
+methods = ['ACP', 'TSNE', 'UMAP', 'Q']
+method = ""
+
+while method != 'Q':
+    method = ""
+    while not method in methods:
+        print("Veuillez ecrire en lettre capitale l'une des ",len(methods)," methode(s) suivante(s) :")
+        cpt=1
+        for method in methods:
+            print(cpt," - ", method)
+            cpt+=1
+        cpt=1
+        print("Ou ecrire Q pour quitter\n\n")
+        method = input("Saisir : ")
+
     # Perform dimensionality reduction
     if method=='TSNE':
         red_emb = dim_red(embeddings, 3, method)
+    elif method=='Q':
+        print("Au revoir !!!")
+        continue
     else:
         red_emb = dim_red(embeddings, 20, method)
 
@@ -155,4 +171,4 @@ for method in methods:
     ari_score = adjusted_rand_score(pred, labels)
 
     # Print results
-    print(f'Method: {method}\nNMI: {nmi_score:.2f} \nARI: {ari_score:.2f}\n')
+    print(f'\n\nMethod: {method}\nNMI: {nmi_score:.2f} \nARI: {ari_score:.2f}\n\n')
