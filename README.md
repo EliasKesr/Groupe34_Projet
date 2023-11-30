@@ -16,8 +16,8 @@ This project focuses on text encoding using the Sentence Transformer model and a
 
 ## Clone the repo
 ```bash
-git clone -b main <repository_url>
-cd <repository_directory>
+git clone https://github.com/EliasKesr/Groupe34_Projet.git
+cd Groupe34_Projet
 ```
 ## Install Dependencies
 ```bash
