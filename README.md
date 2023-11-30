@@ -8,7 +8,7 @@ This project focuses on text encoding using the Sentence Transformer model and a
 
 ### Requirements
 
-- Python 3.x
+- Python 3.9
 - Pip
 - Additional requirements specified in `requirements.txt`
 
