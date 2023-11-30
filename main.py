@@ -6,6 +6,26 @@ import pandas as pd
 import prince
 from sklearn.cluster import KMeans
 
+def dim_red_Acp(mat, p):
+    '''
+    Perform dimensionality reduction
+
+    Input:
+    -----
+        mat : NxM list 
+        p : number of dimensions to keep 
+    Output:
+    ------
+        red_mat : NxP list such that p<<m
+    '''
+    
+    red_mat = mat[:,:]
+    red_mat = pd.DataFrame(red_mat)
+    pca = prince.PCA(n_components=p)
+    pca = pca.fit(red_mat)
+    
+    return pca.transform(red_mat)
+
 
 def dim_red(mat, p, method):
     '''
@@ -20,11 +40,7 @@ def dim_red(mat, p, method):
         red_mat : NxP list such that p<<m
     '''
     if method=='ACP':
-        red_mat = mat[:,:]
-        red_mat = pd.DataFrame(red_mat)
-        pca = prince.PCA(n_components=p)
-        pca = pca.fit(red_mat)
-        red_mat = pca.transform(red_mat)
+        red_mat = dim_red_Acp(mat, p)
         
     elif method=='AFC':
         red_mat = mat[:,:p]
@@ -33,7 +49,7 @@ def dim_red(mat, p, method):
         red_mat = mat[:,:p]
         
     else:
-        raise Exception("Please select one of the three methods : APC, AFC, UMAP")
+        raise Exception("Please select one of the three methods : APC, TSNE, UMAP")
     
     return red_mat
 
@@ -51,11 +67,7 @@ def clust(mat, k):
         pred : list of predicted labels
     '''
     
-    #pred = np.random.randint(k, size=len(corpus))
-    kmeans = KMeans(n_clusters=k, random_state=42, n_init=10)
-    
-    kmeans.fit(mat)
-    pred = kmeans.labels_
+    pred = np.random.randint(k, size=len(corpus))
     
     return pred
 
