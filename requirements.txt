@@ -5,3 +5,4 @@ sentence-transformers==2.2.2
 prince==0.13.0
 matplotlib
 plotly
+umap-learn
